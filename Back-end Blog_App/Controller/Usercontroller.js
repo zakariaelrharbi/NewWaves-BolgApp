@@ -2,40 +2,46 @@ const mongoose = require('mongoose');
 const Users = require('../Models/Usersschema');
 const bcrypt = require('bcrypt');
 // Register
-const Register = async(req, res) => {
-    try { 
-        const {name, email, password} = req.body;
-        // check if the user already exist
-        let user = await Users.findOne({email});
+const Register = async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+        
+        // check if the user already exists
+        let user = await Users.findOne({ email });
         if (user) {
-            return res.status(400).json({message: "You already Registred"})
+            return res.status(400).json({ message: "You are already registered" });
         }
 
-        if(!name || !email || !password){
-            return res.status(400).json('message:', error);
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "Please provide all necessary information" });
         }
+
         // hashing the password 
-        const hashedpassword = await bcrypt.hash(password, 10);
-        // creating new user
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // creating new user with hashed password
         const newUser = await Users.create({
             name,
             email,
-            password: hashedpassword,
+            password: hashedPassword, // store the hashed password
         });
-        return res.status(201).json(
-            {
-                _id: user._id,
-                avatar: user.avatar,
-                name: user.name,
-                email: user.email,
-                verified: user.verified,
-                admin: user.admin,
-                token: null
-            })
+
+        return res.status(201).json({
+            id: newUser._id, // use newUser here, not user
+            avatar: newUser.avatar,
+            name: newUser.name,
+            email: newUser.email,
+            verified: newUser.verified,
+            admin: newUser.admin,
+            token: null,
+            message: "user created succesfully"
+
+        });
     } catch (error) {
-        console.log(`message:`, error);
+        console.log("Error:", error);
+        return res.status(500).json({ message: "Server error" });
     }
-}
+};
 // login
 const Login = async(req, res) => {
     try { 
