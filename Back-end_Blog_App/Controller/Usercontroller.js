@@ -2,13 +2,14 @@ const mongoose = require('mongoose');
 const Users = require('../Models/Usersschema');
 const bcrypt = require('bcrypt');
 
-
 // Register
 const Register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         
-        // check if the user already exists
+        // Validate password complexity if needed
+
+        // Check if the user already exists
         let user = await Users.findOne({ email });
         if (user) {
             return res.status(400).json({ message: "You are already registered" });
@@ -18,33 +19,33 @@ const Register = async (req, res) => {
             return res.status(400).json({ message: "Please provide all necessary information" });
         }
 
-        // hashing the password 
+        // Hash the password 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // creating new user with hashed password
+        // Create a new user with hashed password
         const newUser = await Users.create({
             name,
             email,
-            password: hashedPassword, // store the hashed password
+            password: hashedPassword, // Store the hashed password
         });
 
         return res.status(201).json({
-            id: newUser._id, // use newUser here, not user
+            id: newUser._id,
             avatar: newUser.avatar,
             name: newUser.name,
             email: newUser.email,
             verified: newUser.verified,
             admin: newUser.admin,
             token: null,
-            message: "user created succesfully"
-
+            message: "User created successfully"
         });
     } catch (error) {
-        console.log("Error:", error);
+        console.error("Error during registration:", error);
         return res.status(500).json({ message: "Server error" });
     }
 };
-// login
+
+// Login
 const Login = async (req, res) => {
     try { 
         const { email, password } = req.body;
@@ -54,8 +55,8 @@ const Login = async (req, res) => {
         }
         const isPasswordCorrect = await user.comparePassword(password);
         if (isPasswordCorrect) {
-            return res.status(201).json({
-                id: user._id, // using user instead of newUser
+            return res.status(200).json({
+                id: user._id,
                 avatar: user.avatar,
                 name: user.name,
                 email: user.email,
@@ -71,7 +72,6 @@ const Login = async (req, res) => {
         console.error("Error during login:", error);
         return res.status(500).json({ message: "Internal server error" });
     }
-}
+};
 
-
-module.exports = {Register, Login}
+module.exports = { Register, Login };
