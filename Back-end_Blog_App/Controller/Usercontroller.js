@@ -45,27 +45,33 @@ const Register = async (req, res) => {
     }
 };
 // login
-const Login = async(req, res) => {
+const Login = async (req, res) => {
     try { 
-        const {email, password} = req.body;
-        if(!email || !password){
-            return res.status(400).json('message:', error);
+        const { email, password } = req.body;
+        let user = await Users.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "Email not found" });
         }
-        const user = await Users.find({email:email})
-        if(!user){
-            return res.status(404).json("User")
+        const isPasswordCorrect = await user.comparePassword(password);
+        if (isPasswordCorrect) {
+            return res.status(201).json({
+                id: user._id, // using user instead of newUser
+                avatar: user.avatar,
+                name: user.name,
+                email: user.email,
+                verified: user.verified,
+                admin: user.admin,
+                token: null,
+                message: "Login successful"
+            });
+        } else {
+            return res.status(401).json({ message: "Invalid email or password" });
         }
-        const Comparedpassword = await bcrypt.compare(password, user[0].password);
-        if(!Comparedpassword){
-            return res.status(404).json("wrong password")
-        }
-        req.session.user = user[0]
-        req.session.authenticated = true
-        res.status(200).json("login successfuly")
-        
     } catch (error) {
-        console.log(`message:`, error);
+        console.error("Error during login:", error);
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
+
 
 module.exports = {Register, Login}
