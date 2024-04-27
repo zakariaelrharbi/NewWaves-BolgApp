@@ -2,6 +2,7 @@ import React from 'react'
 import { FaRegUser } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import { FaRegEye } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 const Register = () => {
@@ -82,12 +83,9 @@ const Register = () => {
             />
             <label htmlFor="remember-me" className="ml-3 block text-sm">
               I accept the{" "}
-              <a
-                href="javascript:void(0);"
-                className="text-blue-600 font-semibold hover:underline ml-1"
-              >
-                Terms and Conditions
-              </a>
+              
+              <Link className="text-blue-600 font-semibold hover:underline ml-1">Terms and Conditions
+              </Link>
             </label>
           </div>
         </div>
