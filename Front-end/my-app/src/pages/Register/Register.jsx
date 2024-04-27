@@ -52,8 +52,8 @@ const Register = () => {
                         message: "Name is required"
                     }
                 })}
-                className="bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded outline-blue-500"
                 placeholder="Enter name"
+                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.name ? "outline-red-500" : "outline-blue-500"}`}
               />
             <FaRegUser className="w-4 h-4 absolute right-4"/>
             </div>
@@ -67,7 +67,17 @@ const Register = () => {
               <input
                 name="email"
                 type="email"
-                {...register("email")}
+                {...register("email", {
+                   required:{
+                        value: true,
+                        message: "Email is required"
+                    },
+                    pattern: {
+                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: 'Please enter a valid email',
+                    }
+
+                })}
                 required=""
                 className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
                 placeholder="Enter email"
