@@ -5,8 +5,11 @@ import { FaRegEye } from "react-icons/fa";
 
 
 const Register = () => {
+
+
+
   return (
-    <div>
+    <>
       <div className="font-[sans-serif] text-[#333] mt-4 p-4 relative">
   <div className="max-w-md w-full mx-auto relative z-50">
     <div className="text-center mb-8">
@@ -97,7 +100,7 @@ const Register = () => {
   </div>
 </div>
 
-    </div>
+    </>
   )
 }
 
