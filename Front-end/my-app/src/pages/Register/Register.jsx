@@ -3,9 +3,22 @@ import { FaRegUser } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-
+import {useForm} from 'react-hook-form';
 
 const Register = () => {
+    const {register, 
+           handleSubmit,
+           formState: {errors, isValid},
+           watch,
+           } = useForm({
+            defaultValues: {
+                name: "",
+                email: "",
+                password: "",
+                confirmPassword: ""
+            }
+    } );
+
     const submitHandler = () => {};
 
 
@@ -65,7 +78,7 @@ const Register = () => {
             <label className="text-sm mb-2 block">Confirm Password</label>
             <div className="relative flex items-center">
               <input
-                name=" confirmpassword"
+                name=" confirmPassword"
                 type="password"
                 required=""
                 className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
