@@ -103,13 +103,6 @@ const Register = () => {
                         value: true,
                         message: "Password is required"
                     },
-                    validate: (value) => {
-                    return (
-                        [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/].every((pattern) =>
-                        pattern.test(value)
-                        ) || "must include lower, upper, number, and special chars"
-                    );
-                    },
                 })}
                 placeholder="Enter password"
                 className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.password ? "outline-red-500" : "outline-blue-500"}`}
