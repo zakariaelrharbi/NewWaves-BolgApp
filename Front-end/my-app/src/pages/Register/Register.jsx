@@ -60,6 +60,19 @@ const Register = () => {
              <FaRegEye className="w-4 h-4 absolute right-4"/>
             </div>
           </div>
+          <div>
+            <label className="text-sm mb-2 block">Confirm Password</label>
+            <div className="relative flex items-center">
+              <input
+                name=" confirmpassword"
+                type="password"
+                required=""
+                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
+                placeholder="Confirm password"
+              />
+             <FaRegEye className="w-4 h-4 absolute right-4"/>
+            </div>
+          </div>
           <div className="flex items-center">
             <input
               id="remember-me"
