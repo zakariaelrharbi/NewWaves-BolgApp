@@ -5,7 +5,7 @@ import { FaRegEye } from "react-icons/fa";
 
 
 const Register = () => {
-
+    const submitHandler = () => {};
 
 
   return (
@@ -16,7 +16,7 @@ const Register = () => {
         <a href="/" className="w-16 dark:text-[#007bff] font-bold text-3xl">New <span>W</span>aves</a>
     </div>
     <div className="border border-gray-300 bg-white rounded-md p-8">
-      <form className="w-full">
+      <form className="w-full" onSubmit={submitHandler}>
         <div className="mb-6">
           <h3 className="text-2xl font-extrabold">Create an account</h3>
         </div>
