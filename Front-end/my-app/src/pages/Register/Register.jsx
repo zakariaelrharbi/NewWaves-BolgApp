@@ -91,7 +91,7 @@ const Register = () => {
         </div>
         <div className="!mt-10">
           <button
-            type="button"
+            type="submit"
             className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
           >
             Create an account
@@ -99,12 +99,10 @@ const Register = () => {
         </div>
         <p className="text-sm mt-6 text-center">
           Already have an account?{" "}
-          <a
-            href="/"
-            className="text-blue-600 font-semibold hover:underline ml-1"
-          >
+          
+          <Link to='/login' className="text-blue-600 font-semibold hover:underline ml-1">
             Login here
-          </a>
+          </Link>
         </p>
       </form>
     </div>
