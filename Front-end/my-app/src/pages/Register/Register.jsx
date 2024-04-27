@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { FaRegUser } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
-import { FaRegEye } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 
@@ -23,6 +23,10 @@ const Register = () => {
     const submitHandler = () => {};
 
     const password = watch('password');
+    const [showPassword, setShowPassword] = useState(false);
+        const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+        };
 
 
   return (
@@ -93,7 +97,7 @@ const Register = () => {
             <div className="relative flex items-center">
               <input
                 name="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                  {...register("password",{
                     minLength: {
                         value: 8,
@@ -107,7 +111,17 @@ const Register = () => {
                 placeholder="Enter password"
                 className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.password ? "outline-red-500" : "outline-blue-500"}`}
               />
-             <FaRegEye className="w-4 h-4 absolute right-4"/>
+             {showPassword ? (
+                <FaRegEye
+                  className="w-4 h-4 absolute right-4 cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <FaRegEyeSlash
+                  className="w-4 h-4 absolute right-4 cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                />
+              )}
             </div>
             {errors.password?.message && (
                 <p className="text-red-500 text-xs mt-1">{errors.password?.message}</p>
