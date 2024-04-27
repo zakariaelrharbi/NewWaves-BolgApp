@@ -27,6 +27,10 @@ const Register = () => {
         const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
         };
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+        const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+        };
 
 
   return (
@@ -112,12 +116,12 @@ const Register = () => {
                 className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.password ? "outline-red-500" : "outline-blue-500"}`}
               />
              {showPassword ? (
-                <FaRegEye
+                <FaRegEyeSlash
                   className="w-4 h-4 absolute right-4 cursor-pointer"
                   onClick={togglePasswordVisibility}
                 />
               ) : (
-                <FaRegEyeSlash
+                <FaRegEye
                   className="w-4 h-4 absolute right-4 cursor-pointer"
                   onClick={togglePasswordVisibility}
                 />
@@ -132,7 +136,7 @@ const Register = () => {
             <div className="relative flex items-center">
               <input
                 name=" confirmPassword"
-                type="password"
+                type={showConfirmPassword ? 'text' : 'password'}
                 {...register("confirmPassword", {
                      required:{
                         value: true,
@@ -145,11 +149,20 @@ const Register = () => {
                     }
                 }
                 )}
-                required=""
                 placeholder="Confirm password"
                 className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.confirmPassword ? "outline-red-500" : "outline-blue-500"}`}
               />
-             <FaRegEye className="w-4 h-4 absolute right-4"/>
+            {showConfirmPassword ? (
+                < FaRegEyeSlash
+                  className="w-4 h-4 absolute right-4 cursor-pointer"
+                  onClick={toggleConfirmPasswordVisibility}
+                />
+              ) : (
+                <FaRegEye
+                  className="w-4 h-4 absolute right-4 cursor-pointer"
+                  onClick={toggleConfirmPasswordVisibility}
+                />
+              )}
             </div>
             {errors.confirmPassword?.message && (
                 <p className="text-red-500 text-xs mt-1">{errors.confirmPassword?.message}</p>
