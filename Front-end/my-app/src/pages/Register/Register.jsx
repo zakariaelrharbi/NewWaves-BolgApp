@@ -133,7 +133,7 @@ const Register = () => {
                     },
                     validate: (value) => {
                         if(value !== password){
-                            return 
+                            return "Password does not match";
                         }
                     }
                 }
