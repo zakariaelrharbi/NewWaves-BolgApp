@@ -19,7 +19,7 @@ const Register = () => {
     <div className="border border-gray-300 bg-white rounded-md p-8">
       <form className="w-full" onSubmit={submitHandler}>
         <div className="mb-6">
-          <h3 className="text-2xl font-extrabold">Create an account</h3>
+          <h3 className="text-2xl font-extrabold text-center">Register</h3>
         </div>
         <div className="space-y-6">
           <div>

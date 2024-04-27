@@ -1,45 +1,54 @@
 import React from 'react'
+import { FaRegUser } from "react-icons/fa";
+import { MdMailOutline } from "react-icons/md";
+import { FaRegEye } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 
 const Login = () => {
+    const submitHandler = () => {};
+
+
   return (
     <>
-      <div className="bg-gray-50 font-[sans-serif] text-[#333]">
-  <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-    <div className="max-w-md w-full border py-8 px-6 rounded border-gray-300 bg-white">
-      <a href="javascript:void(0)">
-        <img
-          src="https://readymadeui.com/readymadeui.svg"
-          alt="logo"
-          className="w-40 mb-10"
-        />
-      </a>
-      <h2 className="text-center text-3xl font-extrabold">
-        Log in to your account
-      </h2>
-      <form className="mt-10 space-y-4">
-        <div>
-          <input
-            name="email"
-            type="email"
-            autoComplete="email"
-            required=""
-            className="w-full text-sm px-4 py-3 rounded outline-none border-2 focus:border-blue-500"
-            placeholder="Email address"
-          />
+      <div className="font-[sans-serif] text-[#333] mt-4 p-4 relative">
+  <div className="max-w-md w-full mx-auto relative z-50">
+    <div className="text-center mb-8">
+        <a href="/" className="w-16 dark:text-[#007bff] font-bold text-3xl">New <span>W</span>aves</a>
+    </div>
+    <div className="border border-gray-300 bg-white rounded-md p-8">
+      <form className="w-full" onSubmit={submitHandler}>
+        <div className="mb-6">
+          <h3 className="text-2xl font-extrabold text-center">Login</h3>
         </div>
-        <div>
-          <input
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required=""
-            className="w-full text-sm px-4 py-3 rounded outline-none border-2 focus:border-blue-500"
-            placeholder="Password"
-          />
-        </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="space-y-6">
+          <div>
+            <label className="text-sm mb-2 block">Email</label>
+            <div className="relative flex items-center">
+              <input
+                name="email"
+                type="email"
+                required=""
+                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
+                placeholder="Enter email"
+              />
+            <MdMailOutline className="w-4 h-4 absolute right-4"/>
+            </div>
+          </div>
+          <div>
+            <label className="text-sm mb-2 block">Password</label>
+            <div className="relative flex items-center">
+              <input
+                name="password"
+                type="password"
+                required=""
+                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
+                placeholder="Enter password"
+              />
+             <FaRegEye className="w-4 h-4 absolute right-4"/>
+            </div>
+          </div>
+            <div className="flex items-center justify-between gap-4">
           <div className="flex items-center">
             <input
               id="remember-me"
@@ -51,30 +60,29 @@ const Login = () => {
               Remember me
             </label>
           </div>
+          {/* forget password  */}
           <div>
-            <a
-              href="jajvascript:void(0);"
-              className="text-sm text-blue-600 hover:text-blue-500"
-            >
+           <Link to='/' className="text-sm text-blue-600 hover:text-blue-500">
               Forgot Password?
-            </a>
+           </Link>
           </div>
+        </div>
         </div>
         <div className="!mt-10">
           <button
-            type="button"
-            className="w-full py-2.5 px-4 text-sm rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+            type="submit"
+            className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
           >
-            Log in
+            Login
           </button>
-          <p className="text-sm mt-6 text-center">
-          Already have an account?{" "}
+        </div>
+        <p className="text-sm mt-6 text-center">
+          Don't have an account?{" "}
           
           <Link to='/register' className="text-blue-600 font-semibold hover:underline ml-1">
             Register here
           </Link>
         </p>
-        </div>
       </form>
     </div>
   </div>
