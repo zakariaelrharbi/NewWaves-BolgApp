@@ -22,6 +22,8 @@ const Register = () => {
 
     const submitHandler = () => {};
 
+    const password = watch('password');
+
 
   return (
     <>
@@ -124,13 +126,27 @@ const Register = () => {
               <input
                 name=" confirmPassword"
                 type="password"
-                {...register("confirmPassword")}
+                {...register("confirmPassword", {
+                     required:{
+                        value: true,
+                        message: "Confirm Password is required"
+                    },
+                    validate: (value) => {
+                        if(value !== password){
+                            return 
+                        }
+                    }
+                }
+                )}
                 required=""
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
                 placeholder="Confirm password"
+                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.confirmPassword ? "outline-red-500" : "outline-blue-500"}`}
               />
              <FaRegEye className="w-4 h-4 absolute right-4"/>
             </div>
+            {errors.confirmPassword?.message && (
+                <p className="text-red-500 text-xs mt-1">{errors.confirmPassword?.message}</p>
+            )}
           </div>
           <div className="flex items-center">
             <input
