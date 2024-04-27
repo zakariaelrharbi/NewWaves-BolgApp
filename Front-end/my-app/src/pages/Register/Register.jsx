@@ -16,7 +16,8 @@ const Register = () => {
                 email: "",
                 password: "",
                 confirmPassword: ""
-            }
+            },
+            mode: "onChange",
     } );
 
     const submitHandler = () => {};
