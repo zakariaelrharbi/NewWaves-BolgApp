@@ -186,7 +186,8 @@ const Register = () => {
         <div className="!mt-10">
           <button
             type="submit"
-            className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+            disabled = {!isValid}
+            className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
           >
             Create an account
           </button>
