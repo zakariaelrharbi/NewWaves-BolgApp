@@ -84,7 +84,7 @@ const Register = () => {
             <label htmlFor="remember-me" className="ml-3 block text-sm">
               I accept the{" "}
               
-              <Link className="text-blue-600 font-semibold hover:underline ml-1">Terms and Conditions
+              <Link to='/Terms-and-conditions' className="text-blue-600 font-semibold hover:underline ml-1">Terms and Conditions
               </Link>
             </label>
           </div>
