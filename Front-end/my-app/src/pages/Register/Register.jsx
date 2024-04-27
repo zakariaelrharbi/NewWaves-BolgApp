@@ -76,14 +76,15 @@ const Register = () => {
                     value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: 'Please enter a valid email',
                     }
-
                 })}
-                required=""
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
                 placeholder="Enter email"
-              />
+                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.email ? "outline-red-500" : "outline-blue-500"}`}
+                />
             <MdMailOutline className="w-4 h-4 absolute right-4"/>
             </div>
+            {errors.email?.message && (
+                <p className="text-red-500 text-xs mt-1">{errors.email?.message}</p>
+            )}
           </div>
           <div>
             <label className="text-sm mb-2 block">Password</label>
