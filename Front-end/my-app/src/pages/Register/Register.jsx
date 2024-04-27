@@ -31,7 +31,7 @@ const Register = () => {
         <a href="/" className="w-16 dark:text-[#007bff] font-bold text-3xl">New <span>W</span>aves</a>
     </div>
     <div className="border border-gray-300 bg-white rounded-md p-8">
-      <form className="w-full" onSubmit={submitHandler}>
+      <form className="w-full" onSubmit={handleSubmit(submitHandler)}>
         <div className="mb-6">
           <h3 className="text-2xl font-extrabold text-center">Register</h3>
         </div>
@@ -42,12 +42,24 @@ const Register = () => {
               <input
                 name="name"
                 type="text"
-                required=""
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
+                {...register("name",{
+                    minLength: {
+                        value: 3,
+                        message: "Name must be at least 3 character",
+                    },
+                    required:{
+                        value: true,
+                        message: "Name is required"
+                    }
+                })}
+                className="bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded outline-blue-500"
                 placeholder="Enter name"
               />
             <FaRegUser className="w-4 h-4 absolute right-4"/>
             </div>
+              {errors.name?.message && (
+                <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>
+              )}
           </div>
           <div>
             <label className="text-sm mb-2 block">Email</label>
@@ -55,6 +67,7 @@ const Register = () => {
               <input
                 name="email"
                 type="email"
+                {...register("email")}
                 required=""
                 className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
                 placeholder="Enter email"
@@ -68,6 +81,7 @@ const Register = () => {
               <input
                 name="password"
                 type="password"
+                {...register("password")}
                 required=""
                 className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
                 placeholder="Enter password"
@@ -81,6 +95,7 @@ const Register = () => {
               <input
                 name=" confirmPassword"
                 type="password"
+                {...register("confirmPassword")}
                 required=""
                 className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
                 placeholder="Confirm password"
