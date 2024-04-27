@@ -92,13 +92,24 @@ const Register = () => {
               <input
                 name="password"
                 type="password"
-                {...register("password")}
-                required=""
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded outline-blue-500"
+                 {...register("name",{
+                    minLength: {
+                        value: 8,
+                        message: "Password must be at least 8 character",
+                    },
+                    required:{
+                        value: true,
+                        message: "Password is required"
+                    }
+                })}
                 placeholder="Enter password"
+                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.password ? "outline-red-500" : "outline-blue-500"}`}
               />
              <FaRegEye className="w-4 h-4 absolute right-4"/>
             </div>
+            {errors.email?.message && (
+                <p className="text-red-500 text-xs mt-1">{errors.email?.message}</p>
+            )}
           </div>
           <div>
             <label className="text-sm mb-2 block">Confirm Password</label>
