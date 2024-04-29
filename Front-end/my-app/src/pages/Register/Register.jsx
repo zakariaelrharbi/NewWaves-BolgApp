@@ -1,82 +1,90 @@
 import React, { useState } from 'react';
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
-import {useForm} from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { userRegister } from '../../store/reducers/auth';
 
 const Register = () => {
-    const {register, 
-           handleSubmit,
-           formState: {errors, isValid},
-           watch,
-           } = useForm({
-            defaultValues: {
-                name: "",
-                email: "",
-                password: "",
-                confirmPassword: ""
-            },
-            mode: "onChange",
-    } );
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm({
+        defaultValues: {
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            isAdmin: "false"
+        },
+        mode: "onChange",
+    });
+    const [termsAccepted, setTermsAccepted] = useState(false);
 
-    const submitHandler = () => {};
+    const onSubmit = (data) => {
+        console.log('register', data.username, data.email, data.password);
+        dispatch(userRegister(data)).then(action => {
+          navigate('/login');
+        });
+    }
 
-    const password = watch('password');
+    const Password = watch('password');
     const [showPassword, setShowPassword] = useState(false);
-        const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-        };
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-        const toggleConfirmPasswordVisibility = () => {
-        setShowConfirmPassword(!showConfirmPassword);
-        };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
 
   return (
     <>
-      <div className="font-[sans-serif] text-[#333] mt-4 p-4 relative">
+      <div className="font-[sans-serif] text-[#333] p-1 relative">
   <div className="max-w-md w-full mx-auto relative z-50">
-    <div className="text-center mb-8">
-        <a href="/" className="w-16 dark:text-[#007bff] font-bold text-3xl">New <span>W</span>aves</a>
-    </div>
-    <div className="border border-gray-300 bg-white rounded-md p-8">
-      <form className="w-full" onSubmit={handleSubmit(submitHandler)}>
-        <div className="mb-6">
+            <div className="text-center mb-4">
+                {/* link home page here */}
+                <Link to='/' className="w-16 dark:text-[#007bff] font-bold text-3xl"> SurfMinds</Link>
+            </div>
+    <div className="border border-gray-300 bg-white rounded-md p-6">
+      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <div className="">
           <h3 className="text-2xl font-extrabold text-center">Register</h3>
         </div>
         <div className="space-y-6">
           <div>
-            <label className="text-sm mb-2 block">Name</label>
-            <div className="relative flex items-center">
+            <label className="text-sm mb-2 block text-left">username</label>
+            <div className="relative flex items-center ">
               <input
-                name="name"
+                name="username"
                 type="text"
-                {...register("name",{
+                {...register("username",{
                     minLength: {
                         value: 3,
-                        message: "Name must be at least 3 character",
+                        message: "username must be at least 3 character",
                     },
                     required:{
                         value: true,
-                        message: "Name is required"
+                        message: "username is required"
                     }
                 })}
-                placeholder="Enter name"
-                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.name ? "outline-red-500" : "outline-blue-500"}`}
+                placeholder="Enter username"
+                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.username ? "outline-red-500" : "outline-blue-500"}`}
               />
             <FaRegUser className="w-4 h-4 absolute right-4"/>
             </div>
-              {errors.name?.message && (
-                <p className="text-red-500 text-xs mt-1">{errors.name?.message}</p>
+              {errors.username?.message && (
+                <p className="text-red-500 text-xs mt-1 block text-left">{errors.username?.message}</p>
               )}
           </div>
           <div>
-            <label className="text-sm mb-2 block">Email</label>
+            <label className="text-sm mb-2 block text-left">Email</label>
             <div className="relative flex items-center">
               <input
                 name="email"
-                type="email"
+                type="text"
                 {...register("email", {
                    required:{
                         value: true,
@@ -88,16 +96,16 @@ const Register = () => {
                     }
                 })}
                 placeholder="Enter email"
-                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded ${errors.email ? "outline-red-500" : "outline-blue-500"}`}
+                className={`bg-white border border-gray-300 w-full text-sm px-5 py-2.5 rounded  ${errors.email ? "outline-red-500" : "outline-blue-500"}`}
                 />
             <MdMailOutline className="w-4 h-4 absolute right-4"/>
             </div>
             {errors.email?.message && (
-                <p className="text-red-500 text-xs mt-1">{errors.email?.message}</p>
+                <p className="text-red-500 text-xs mt-1 block text-left">{errors.email?.message}</p>
             )}
           </div>
           <div>
-            <label className="text-sm mb-2 block">Password</label>
+            <label className="text-sm mb-2 block text-left">Password</label>
             <div className="relative flex items-center">
               <input
                 name="password"
@@ -128,11 +136,11 @@ const Register = () => {
               )}
             </div>
             {errors.password?.message && (
-                <p className="text-red-500 text-xs mt-1">{errors.password?.message}</p>
+                <p className="text-red-500 text-xs mt-1 block text-left">{errors.password?.message}</p>
             )}
           </div>
           <div>
-            <label className="text-sm mb-2 block">Confirm Password</label>
+            <label className="text-sm mb-2 block text-left">Confirm Password</label>
             <div className="relative flex items-center">
               <input
                 name=" confirmPassword"
@@ -143,7 +151,7 @@ const Register = () => {
                         message: "Confirm Password is required"
                     },
                     validate: (value) => {
-                        if(value !== password){
+                        if(value !== Password){
                             return "Password does not match";
                         }
                     }
@@ -165,7 +173,7 @@ const Register = () => {
               )}
             </div>
             {errors.confirmPassword?.message && (
-                <p className="text-red-500 text-xs mt-1">{errors.confirmPassword?.message}</p>
+                <p className="text-red-500 text-xs mt-1 block text-left">{errors.confirmPassword?.message}</p>
             )}
           </div>
           <div className="flex items-center">
@@ -174,6 +182,7 @@ const Register = () => {
               name="remember-me"
               type="checkbox"
               className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              onChange={(e) => setTermsAccepted(e.target.checked)}
             />
             <label htmlFor="remember-me" className="ml-3 block text-sm">
               I accept the{" "}
@@ -186,7 +195,7 @@ const Register = () => {
         <div className="!mt-10">
           <button
             type="submit"
-            disabled = {!isValid}
+            disabled = {!isValid || !termsAccepted}
             className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
           >
             Create an account
