@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { MdMailOutline } from "react-icons/md";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { userLogin } from '../../store/reducers/auth';
 
 const UserLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { login, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" }); // Changed login to register
 
     const onSubmit = (data) => {
         console.log('login', data.email, data.password);
@@ -45,7 +44,7 @@ const UserLogin = () => {
                                     <input
                                         name="email"
                                         type="email"
-                                        {...login("email", {
+                                        {...register("email", {
                                             required: "Email is required",
                                             pattern: {
                                                 value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -67,7 +66,7 @@ const UserLogin = () => {
                                     <input
                                         name="password"
                                         type={showPassword ? 'text' : 'password'}
-                                        {...login("password", {
+                                        {...register("password", {
                                             required: "Password is required",
                                             minLength: {
                                                 value: 8,
